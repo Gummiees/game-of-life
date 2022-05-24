@@ -1,0 +1,37 @@
+
+.row {
+  &:first-child .cell {
+    border-top: 1px solid black;
+  }
+
+  .cell {
+    width: 20px;
+    height: 20px;
+    border-right: 1px solid black;
+    border-bottom: 1px solid black;
+
+    &:first-child {
+      border-left: 1px solid black;
+    }
+  }
+}
+
+
+form,
+.buttons {
+  margin-top: 10px;
+  gap: 10px;
+}
+
+form input {
+  width: 50px;
+}
+
+.row,
+.row .cell,
+.buttons,
+form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

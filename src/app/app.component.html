@@ -1,0 +1,36 @@
+<div class="game">
+  <div class="row" *ngFor="let row of game">
+    <div class="cell" *ngFor="let cell of row">
+      {{ cell === 'alive' ? 'o' : '' }}
+    </div>
+  </div>
+</div>
+<div class="buttons">
+  <ng-container *ngIf="iteratingManually; else automatically" (click)="goToNextIteration()">
+    <button (click)="goToNextIteration()">
+      Next iteration
+    </button>
+    <button (click)="runAutomatically()">
+      Start
+    </button>
+  </ng-container>
+  <ng-template #automatically>
+    <button (click)="slower()">
+      Slower
+    </button>
+    <button (click)="runManually()">
+      Stop
+    </button>
+    <button (click)="faster()">
+      Faster
+    </button>
+  </ng-template>
+  <button (click)="reset()">
+    Reset
+  </button>
+</div>
+<form>
+  <label for="size">Grid size</label>
+  <input name="size" type="number" min="0" max="100" [(ngModel)]="gridSize" (ngModelChange)="onInputChange()"/>
+  <div *ngIf="inputError">{{inputError}}</div>
+</form>
