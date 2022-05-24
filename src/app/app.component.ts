@@ -1,23 +1,25 @@
-import { Component, OnDestroy } from '@angular/core';
-import { Subscription, timer } from 'rxjs';
+import { Component, OnDestroy } from "@angular/core";
+import { Subscription, timer } from "rxjs";
 
-type Cell = 'dead' | 'alive';
+type Cell = "dead" | "alive";
 type Row = Cell[];
 type Game = Row[];
 
+const DEFAULT_GRID = 50;
+
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
+  selector: "app-root",
+  templateUrl: "./app.component.html",
+  styleUrls: ["./app.component.scss"],
 })
 export class AppComponent implements OnDestroy {
   public game: Game;
   public iteratingManually = true;
-  public gridSize = 20;
-  public inputError = '';
+  public gridSize = DEFAULT_GRID;
+  public inputError = "";
 
   private subscription?: Subscription;
-  private currentTimer = 2000;
+  private currentTimer = 100;
 
   constructor() {
     this.game = this.constructGame();
@@ -33,9 +35,9 @@ export class AppComponent implements OnDestroy {
 
   onInputChange() {
     if (this.gridSize > 100 || this.gridSize < 0) {
-      this.inputError = 'Grid size must be between 0 and 100';
-      setTimeout(() => (this.gridSize = 20));
-      setTimeout(() => (this.inputError = ''), 3000);
+      this.inputError = "Grid size must be between 0 and 100";
+      setTimeout(() => (this.gridSize = DEFAULT_GRID));
+      setTimeout(() => (this.inputError = ""), 3000);
     }
   }
 
@@ -60,13 +62,14 @@ export class AppComponent implements OnDestroy {
   }
 
   faster() {
-    if (this.currentTimer > 100) {
+    if (this.currentTimer > 1) {
       this.currentTimer = Math.floor(this.currentTimer / 2);
     }
     this.runAutomatically();
   }
 
   reset() {
+    this.runManually();
     this.game = this.constructGame();
   }
 
@@ -81,7 +84,7 @@ export class AppComponent implements OnDestroy {
   private constructRow(): Row {
     const row: Row = [];
     for (let j = 0; j < this.gridSize; j++) {
-      const cell: Cell = this.isGeneratedAlive() ? 'alive' : 'dead';
+      const cell: Cell = this.isGeneratedAlive() ? "alive" : "dead";
       row.push(cell);
     }
     return row;
@@ -132,17 +135,17 @@ export class AppComponent implements OnDestroy {
 
     if (this.isCellAlive(opts.cell)) {
       if (totalAdjacentCellsAlive < 2) {
-        return 'dead';
+        return "dead";
       }
       if (totalAdjacentCellsAlive <= 3) {
-        return 'alive';
+        return "alive";
       }
-      return 'dead';
+      return "dead";
     }
     if (totalAdjacentCellsAlive === 3) {
-      return 'alive';
+      return "alive";
     }
-    return 'dead';
+    return "dead";
   }
 
   private getAbsolute(x: number): number {
@@ -156,6 +159,6 @@ export class AppComponent implements OnDestroy {
   }
 
   private isCellAlive(cell: Cell): boolean {
-    return cell === 'alive';
+    return cell === "alive";
   }
 }

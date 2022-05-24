@@ -1,18 +1,10 @@
 
-.row {
-  &:first-child .cell {
-    border-top: 1px solid black;
-  }
+.cell {
+  width: 10px;
+  height: 10px;
 
-  .cell {
-    width: 20px;
-    height: 20px;
-    border-right: 1px solid black;
-    border-bottom: 1px solid black;
-
-    &:first-child {
-      border-left: 1px solid black;
-    }
+  &--alive {
+    background-color:white;
   }
 }
 

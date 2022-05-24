@@ -1,8 +1,7 @@
-<div class="game">
+<div class="container">
+  <div class="game">
   <div class="row" *ngFor="let row of game">
-    <div class="cell" *ngFor="let cell of row">
-      {{ cell === 'alive' ? 'o' : '' }}
-    </div>
+    <div class="cell" *ngFor="let cell of row" [ngClass]="{ 'cell--alive' : cell === 'alive'}"></div>
   </div>
 </div>
 <div class="buttons">
@@ -34,3 +33,5 @@
   <input name="size" type="number" min="0" max="100" [(ngModel)]="gridSize" (ngModelChange)="onInputChange()"/>
   <div *ngIf="inputError">{{inputError}}</div>
 </form>
+
+</div>
